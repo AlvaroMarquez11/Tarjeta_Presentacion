@@ -23,6 +23,9 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -40,10 +43,14 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     TarjetaPersonal("671234859",
-                        "Alvaro.es",
-                        "Alvaro.marquez@gmail.com",
+                        "Alvaro.Marquezes",
+                        "Alvaro@gmail.com",
                         "Álvaro Márquez",
-                        "Estudiante \n IES virgen de la Paloma \n 2ºCurso de DAM ")
+                        "Estudiante de Informática",
+                        "IES virgen de la Paloma",
+                        "2ºCurso de DAM ",
+                        "Madrid"
+                    )
                 }
             }
         }
@@ -52,8 +59,10 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun TarjetaPersonal(telefono: String, pagina:String, email: String,
-                    nombre: String, info:String, modifier: Modifier = Modifier) {
-    val image = painterResource(R.drawable.descarga)
+                    nombre: String, estudio: String, instituto: String, 
+                    curso: String, ciudad: String, modifier: Modifier = Modifier) {
+    val image1 = painterResource(R.drawable.descarga)
+    val image2 = painterResource(R.drawable.captura)
 
     Box(
         modifier = modifier
@@ -66,14 +75,13 @@ fun TarjetaPersonal(telefono: String, pagina:String, email: String,
         Box(
             modifier = modifier
                 .fillMaxSize()
-                .background(Color.White)
+                .background(Color(255, 255, 255, 255))
                 .padding(20.dp)
                 .align(Alignment.BottomCenter)
         ) {
             Column (
                 modifier = modifier
                     .fillMaxWidth()
-                    .background(Color.White)
                     .padding(16.dp)
                     .align(Alignment.BottomCenter)
 
@@ -97,7 +105,7 @@ fun TarjetaPersonal(telefono: String, pagina:String, email: String,
         ) {
             Column {
                 Image(
-                    painter = image,
+                    painter = image1,
                     contentDescription = null,
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
@@ -108,20 +116,22 @@ fun TarjetaPersonal(telefono: String, pagina:String, email: String,
             Column {
                 Row {
                     Text(
-                        text = "Álvaro Márquez Santamaria",
+                        text = nombre,
+                        fontWeight = FontWeight.Bold,
+                        fontFamily = FontFamily.Serif,
                         fontSize = 20.sp,
                         modifier = modifier
-                            .background(Color.White)
                             .padding(15.dp)
                             .fillMaxWidth()
                     )
                 }
                 Row {
                     Text(
-                        text = "Madrid",
+                        text = ciudad,
+                        fontWeight = FontWeight.Bold,
+                        fontFamily = FontFamily.Serif,
                         fontSize = 20.sp,
                         modifier = modifier
-                            .background(Color.White)
                             .padding(15.dp)
                             .fillMaxWidth()
                     )
@@ -132,19 +142,26 @@ fun TarjetaPersonal(telefono: String, pagina:String, email: String,
         Box(
             modifier = modifier
                 .fillMaxWidth()
-                .background(Color.White)
                 .padding(20.dp)
                 .align(Alignment.CenterStart)) {
             Column (
                 modifier = modifier
                     .fillMaxWidth()
-                    .background(Color.White)
                     .padding(16.dp)
                     .align(Alignment.CenterStart),
 
                 ) {
                 Row {
-                    TextInformacion(texto1 = "Información Personal", texto2 = info, modifier = modifier)
+                    TextInformacion(texto1 = "Información Personal", modifier = modifier)
+                }
+                Row {
+                    TextInformacion(texto1 = estudio, modifier = modifier)
+                }
+                Row {
+                    TextInformacion(texto1 = instituto, modifier = modifier)
+                }
+                Row {
+                    TextInformacion(texto1 = curso, modifier = modifier)
                 }
             }
         }
@@ -159,9 +176,22 @@ fun TextInformacion(texto1: String, texto2: String, modifier: Modifier) {
             .fillMaxWidth()
             .padding(16.dp),
         fontWeight = FontWeight.Bold,
+        fontFamily = FontFamily.Serif,
         fontSize = 20.sp
     )
+}
 
+@Composable
+fun TextInformacion(texto1: String, modifier: Modifier) {
+    Text(
+        text = texto1,
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(10.dp),
+        fontWeight = FontWeight.Bold,
+        fontFamily = FontFamily.Serif,
+        fontSize = 20.sp
+    )
 }
 
 
@@ -173,7 +203,11 @@ fun GreetingPreview() {
         TarjetaPersonal("671234859",
             "Alvaro.Marquezes",
             "Alvaro@gmail.com",
-            "Álvaro Márquez",
-            "Estudiante de Informática \nIES virgen de la Paloma \n2ºCurso de DAM ")
+            "Álvaro Márquez Santamaría",
+            "Estudiante de informática",
+            "IES virgen de la Paloma",
+            "2º Curso de DAM ",
+            "Madrid"
+        )
     }
 }
