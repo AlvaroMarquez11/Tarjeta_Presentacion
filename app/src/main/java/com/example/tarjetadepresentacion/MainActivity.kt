@@ -42,7 +42,8 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    TarjetaPersonal("671234859",
+                    TarjetaPersonal(
+                        "671234859",
                         "Alvaro.Marquezes",
                         "Alvaro@gmail.com",
                         "Álvaro Márquez",
@@ -58,42 +59,67 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun TarjetaPersonal(telefono: String, pagina:String, email: String,
-                    nombre: String, estudio: String, instituto: String, 
-                    curso: String, ciudad: String, modifier: Modifier = Modifier) {
+fun TarjetaPersonal(
+    telefono: String, pagina: String, email: String,
+    nombre: String, estudio: String, instituto: String,
+    curso: String, ciudad: String, modifier: Modifier = Modifier
+) {
     val image1 = painterResource(R.drawable.descarga)
-    val image2 = painterResource(R.drawable.captura)
+    val image2 = painterResource(R.drawable.fondotp)
 
     Box(
         modifier = modifier
             .fillMaxSize()
-            .background(Color(90, 200, 255, 255))
+            .background(Color(153, 217, 234, 255))
             .padding(20.dp)
     )
 
     {
+
+        Image(
+            painter = image2,
+            contentDescription = null,
+            modifier = Modifier
+                .fillMaxSize()
+        )
+
         Box(
             modifier = modifier
                 .fillMaxSize()
-                .background(Color(255, 255, 255, 255))
                 .padding(20.dp)
                 .align(Alignment.BottomCenter)
         ) {
-            Column (
+            Column(
                 modifier = modifier
                     .fillMaxWidth()
                     .padding(16.dp)
                     .align(Alignment.BottomCenter)
 
-                ) {
+            ) {
                 Row {
-                    TextInformacion(texto1 = "\uD83D\uDCDE", texto2 = telefono, modifier = modifier)
+                    TextInformacion(
+                        texto1 = "\uD83D\uDCDE",
+                        texto2 = telefono,
+                        modifier = modifier
+                    )
                 }
                 Row {
-                    TextInformacion(texto1 = "\uD83C\uDF10", texto2 = pagina, modifier = modifier)
+                    TextInformacion(
+                        texto1 = "\uD83C\uDF10",
+                        texto2 = pagina,
+                        modifier = modifier
+                    )
                 }
                 Row {
-                    TextInformacion(texto1 = "📧", texto2 = email, modifier = modifier)
+                    Text(
+                        text = "📧  $email",
+                        modifier = modifier
+                            .fillMaxWidth()
+                            .padding(12.dp),
+                        fontWeight = FontWeight.Bold,
+                        fontFamily = FontFamily.Serif,
+                        fontSize = 21.sp
+                    )
                 }
             }
         }
@@ -143,8 +169,9 @@ fun TarjetaPersonal(telefono: String, pagina:String, email: String,
             modifier = modifier
                 .fillMaxWidth()
                 .padding(20.dp)
-                .align(Alignment.CenterStart)) {
-            Column (
+                .align(Alignment.CenterStart)
+        ) {
+            Column(
                 modifier = modifier
                     .fillMaxWidth()
                     .padding(16.dp)
@@ -171,13 +198,13 @@ fun TarjetaPersonal(telefono: String, pagina:String, email: String,
 @Composable
 fun TextInformacion(texto1: String, texto2: String, modifier: Modifier) {
     Text(
-        text = "$texto1 \t $texto2",
+        text = "$texto1  $texto2",
         modifier = modifier
             .fillMaxWidth()
-            .padding(16.dp),
+            .padding(12.dp),
         fontWeight = FontWeight.Bold,
         fontFamily = FontFamily.Serif,
-        fontSize = 20.sp
+        fontSize = 22.sp
     )
 }
 
@@ -195,13 +222,13 @@ fun TextInformacion(texto1: String, modifier: Modifier) {
 }
 
 
-
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
     TarjetaDePresentacionTheme {
-        TarjetaPersonal("671234859",
-            "Alvaro.Marquezes",
+        TarjetaPersonal(
+            "671 234 859",
+            "AlvaroMarquez.es",
             "Alvaro@gmail.com",
             "Álvaro Márquez Santamaría",
             "Estudiante de informática",
