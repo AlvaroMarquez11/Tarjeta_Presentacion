@@ -46,7 +46,7 @@ class MainActivity : ComponentActivity() {
                         "  671 234 859",
                         "Marquez_valdee",
                         " a.marquez@gmail.com",
-                        "Álvaro\nMárquez\nSantamaría",
+                        "Álvaro Márquez Santamaría",
                         "Estudiante de informática",
                         "IES virgen de la Paloma",
                         "2º Curso de DAM ",
@@ -115,8 +115,8 @@ fun TarjetaPersonalHorizontal(
                 .fillMaxSize()
                 .background(Color.White)
                 .padding(20.dp)
-        ){
-            Column {
+        ) {
+            Column(modifier = modifier.align(alignment = Alignment.CenterStart)) {
                 Row {
                     Image(
                         painter = fotoPerfil,
@@ -125,145 +125,255 @@ fun TarjetaPersonalHorizontal(
                         modifier = Modifier
                             .size(150.dp)
                             .clip(CircleShape)
-                            .padding(start = 12.dp)
                     )
                 }
+
                 Row {
+                    Text(
+                        text = "$ciudad|Spain",
+                        fontWeight = FontWeight.Bold,
+                        fontFamily = FontFamily.Serif,
+                        textAlign = TextAlign.Center,
+                        fontSize = 20.sp,
+                        modifier = modifier.padding(
+                            top = 20.dp,
+                            start = 5.dp
+                        )
+                    )
+                }
+
+
+            }
+            Column(
+                modifier = Modifier
+                    .align(alignment = Alignment.TopCenter)
+            ) {
+                Row (modifier = modifier
+                    .fillMaxWidth()
+                    .align(alignment = Alignment.End)
+                ){
                     Text(
                         text = nombre,
                         textAlign = TextAlign.Center,
                         fontWeight = FontWeight.Bold,
                         fontFamily = FontFamily.Serif,
-                        fontSize = 20.sp,
-                        modifier = modifier
-                            .padding(
-                                start = 30.dp,
-                                top = 20.dp
-                            )
+                        fontSize = 40.sp,
+                        modifier = modifier.padding(start = 120.dp)
                     )
                 }
-            }
-            Column (
-                modifier = Modifier.align(alignment = Alignment.Center)
-            ){
-                Row {
-                    Text(
-                        text = "Informacion Personal",
-                        textAlign = TextAlign.Center,
-                        fontWeight = FontWeight.Bold,
-                        fontFamily = FontFamily.Serif,
-                        fontSize = 20.sp,
-                        modifier = modifier
-                            .padding(
-                                start = 30.dp,
-                                top = 20.dp
+                Row(modifier = modifier.align(alignment = Alignment.CenterHorizontally))
+                {
+                    Column(modifier = modifier
+                        .padding(
+                            start = 85.dp,
+                        top = 20.dp))
+                    {
+                        Row {
+                            Text(
+                                text = estudio,
+                                textAlign = TextAlign.Center,
+                                fontWeight = FontWeight.Bold,
+                                fontFamily = FontFamily.Serif,
+                                fontSize = 20.sp,
+                                modifier = modifier
+                                    .padding(
+                                        top = 28.dp,
+                                        start = 30.dp
+                                    )
                             )
-                    )
-                }
-                Row {
-                    Text(
-                        text = estudio,
-                        textAlign = TextAlign.Center,
-                        fontWeight = FontWeight.Bold,
-                        fontFamily = FontFamily.Serif,
-                        fontSize = 20.sp,
-                        modifier = modifier
-                            .padding(
-                                start = 30.dp,
-                                top = 20.dp
+                        }
+                        Row {
+                            Text(
+                                text = instituto,
+                                textAlign = TextAlign.Center,
+                                fontWeight = FontWeight.Bold,
+                                fontFamily = FontFamily.Serif,
+                                fontSize = 20.sp,
+                                modifier = modifier
+                                    .padding(
+                                        top = 28.dp,
+                                        start = 30.dp
+                                    )
                             )
-                    )
-                }
-                Row {
-                    Text(
-                        text = instituto,
-                        textAlign = TextAlign.Center,
-                        fontWeight = FontWeight.Bold,
-                        fontFamily = FontFamily.Serif,
-                        fontSize = 20.sp,
-                        modifier = modifier
-                            .padding(
-                                start = 30.dp,
-                                top = 20.dp
+                        }
+                        Row {
+                            Text(
+                                text = curso,
+                                textAlign = TextAlign.Center,
+                                fontWeight = FontWeight.Bold,
+                                fontFamily = FontFamily.Serif,
+                                fontSize = 20.sp,
+                                modifier = modifier
+                                    .padding(
+                                        top = 30.dp,
+                                        start = 30.dp
+                                    )
                             )
-                    )
-                }
-                Row {
-                    Text(
-                        text = curso,
-                        textAlign = TextAlign.Center,
-                        fontWeight = FontWeight.Bold,
-                        fontFamily = FontFamily.Serif,
-                        fontSize = 20.sp,
-                        modifier = modifier
-                            .padding(
-                                start = 30.dp,
-                                top = 20.dp
-                            )
-                    )
-                }
-            }
+                        }
+                    }
 
-            Column (
-                modifier = Modifier.align(alignment = Alignment.CenterEnd)
-            ){
-                Row {
-                    Text(
-                        text = "Informacion Personal",
-                        textAlign = TextAlign.Center,
-                        fontWeight = FontWeight.Bold,
-                        fontFamily = FontFamily.Serif,
-                        fontSize = 20.sp,
-                        modifier = modifier
-                            .padding(
-                                start = 30.dp,
-                                top = 20.dp
+                    Column(modifier = modifier.padding(top = 20.dp))
+                    {
+                        Row (modifier = modifier
+                            .align(alignment = Alignment.End)
+                            .padding(top = 15.dp)) {
+                            Text(
+                                text = telefono,
+                                textAlign = TextAlign.Center,
+                                fontWeight = FontWeight.Bold,
+                                fontFamily = FontFamily.Serif,
+                                fontSize = 20.sp,
+                                modifier = modifier
+                                    .padding(
+                                        start = 30.dp,
+                                        top = 10.dp
+                                    )
                             )
-                    )
-                }
-                Row {
-                    Text(
-                        text = estudio,
-                        textAlign = TextAlign.Center,
-                        fontWeight = FontWeight.Bold,
-                        fontFamily = FontFamily.Serif,
-                        fontSize = 20.sp,
-                        modifier = modifier
-                            .padding(
-                                start = 30.dp,
-                                top = 20.dp
+                            Image(
+                                painter = ImgTelefono,
+                                contentDescription = null,
+                                modifier = Modifier
+                                    .size(40.dp)
+                                    .align(alignment = Alignment.CenterVertically)
+                                    .padding(5.dp)
                             )
-                    )
-                }
-                Row {
-                    Text(
-                        text = instituto,
-                        textAlign = TextAlign.Center,
-                        fontWeight = FontWeight.Bold,
-                        fontFamily = FontFamily.Serif,
-                        fontSize = 20.sp,
-                        modifier = modifier
-                            .padding(
-                                start = 30.dp,
-                                top = 20.dp
+
+                        }
+
+                        Row(
+                            modifier = modifier
+                                .align(alignment = Alignment.End)
+                                .padding(top = 15.dp)
+                        ) {
+
+                            Text(
+                                text = pagina,
+                                textAlign = TextAlign.Center,
+                                fontWeight = FontWeight.Bold,
+                                fontFamily = FontFamily.Serif,
+                                fontSize = 20.sp,
+                                modifier = modifier
+                                    .padding(
+                                        start = 30.dp,
+                                        top = 10.dp
+                                    )
                             )
-                    )
-                }
-                Row {
-                    Text(
-                        text = curso,
-                        textAlign = TextAlign.Center,
-                        fontWeight = FontWeight.Bold,
-                        fontFamily = FontFamily.Serif,
-                        fontSize = 20.sp,
-                        modifier = modifier
-                            .padding(
-                                start = 30.dp,
-                                top = 20.dp
+                            Image(
+                                painter = Insta,
+                                contentDescription = null,
+                                modifier = Modifier
+                                    .size(40.dp)
+                                    .align(alignment = Alignment.CenterVertically)
+                                    .padding(5.dp)
                             )
-                    )
+
+                        }
+
+                        Row(
+                            modifier = modifier
+                                .align(alignment = Alignment.End)
+                                .padding(top = 15.dp)
+                        ) {
+
+                            Text(
+                                text = email,
+                                textAlign = TextAlign.Center,
+                                fontWeight = FontWeight.Bold,
+                                fontFamily = FontFamily.Serif,
+                                fontSize = 20.sp,
+                                modifier = modifier
+                                    .padding(
+                                        start = 30.dp,
+                                        top = 10.dp
+                                    )
+                            )
+                            Image(
+                                painter = Email,
+                                contentDescription = null,
+                                modifier = Modifier
+                                    .size(40.dp)
+                                    .align(alignment = Alignment.CenterVertically)
+                                    .padding(5.dp)
+                            )
+                        }
+
+                    }
                 }
+
+
             }
+            /*
+                        Column(
+                            modifier = Modifier.align(alignment = Alignment.TopEnd)
+                        ) {
+                            Row {
+                                Image(
+                                    painter = ImgTelefono,
+                                    contentDescription = null,
+                                    modifier = Modifier
+                                        .size(40.dp)
+                                        .align(alignment = Alignment.CenterVertically)
+                                        .padding(5.dp)
+                                )
+                                Text(
+                                    text = telefono,
+                                    textAlign = TextAlign.Center,
+                                    fontWeight = FontWeight.Bold,
+                                    fontFamily = FontFamily.Serif,
+                                    fontSize = 20.sp,
+                                    modifier = modifier
+                                        .padding(
+                                            start = 30.dp,
+                                            top = 10.dp
+                                        )
+                                )
+                            }
+                            Row {
+                                Image(
+                                    painter = Insta,
+                                    contentDescription = null,
+                                    modifier = Modifier
+                                        .size(40.dp)
+                                        .align(alignment = Alignment.CenterVertically)
+                                        .padding(5.dp)
+                                )
+
+                                Text(
+                                    text = estudio,
+                                    textAlign = TextAlign.Center,
+                                    fontWeight = FontWeight.Bold,
+                                    fontFamily = FontFamily.Serif,
+                                    fontSize = 20.sp,
+                                    modifier = modifier
+                                        .padding(
+                                            start = 30.dp,
+                                            top = 10.dp
+                                        )
+                                )
+                            }
+                            Row {
+                                Image(
+                                    painter = Email,
+                                    contentDescription = null,
+                                    modifier = Modifier
+                                        .size(40.dp)
+                                        .align(alignment = Alignment.CenterVertically)
+                                        .padding(5.dp)
+                                )
+                                Text(
+                                    text = instituto,
+                                    textAlign = TextAlign.Start,
+                                    fontWeight = FontWeight.Bold,
+                                    fontFamily = FontFamily.Serif,
+                                    fontSize = 20.sp,
+                                    modifier = modifier
+                                        .padding(
+                                            start = 30.dp,
+                                            top = 10.dp
+                                        )
+                                )
+                            }
+                        }*/
         }
     }
 }
