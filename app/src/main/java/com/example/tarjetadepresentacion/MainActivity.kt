@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -23,10 +24,9 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -43,13 +43,13 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     TarjetaPersonal(
-                        "671234859",
-                        "Alvaro.Marquezes",
-                        "Alvaro@gmail.com",
-                        "Álvaro Márquez",
-                        "Estudiante de Informática",
+                        "  671 234 859",
+                        "Marquez_valdee",
+                        " a.marquez@gmail.com",
+                        "Álvaro\nMárquez\nSantamaría",
+                        "Estudiante de informática",
                         "IES virgen de la Paloma",
-                        "2ºCurso de DAM ",
+                        "2º Curso de DAM ",
                         "Madrid"
                     )
                 }
@@ -64,8 +64,222 @@ fun TarjetaPersonal(
     nombre: String, estudio: String, instituto: String,
     curso: String, ciudad: String, modifier: Modifier = Modifier
 ) {
-    val image1 = painterResource(R.drawable.descarga)
-    val image2 = painterResource(R.drawable.fondotp)
+    BoxWithConstraints(Modifier.fillMaxSize()) {
+        if (maxWidth < 500.dp) {
+            TarjetaPersonalVertical(
+                telefono,
+                pagina,
+                email,
+                nombre,
+                estudio,
+                instituto,
+                curso,
+                ciudad
+            )
+        } else {
+            TarjetaPersonalHorizontal(
+                telefono,
+                pagina,
+                email,
+                nombre,
+                estudio,
+                instituto,
+                curso,
+                ciudad
+            )
+        }
+    }
+
+}
+
+@Composable
+fun TarjetaPersonalHorizontal(
+    telefono: String, pagina: String, email: String,
+    nombre: String, estudio: String, instituto: String,
+    curso: String, ciudad: String, modifier: Modifier = Modifier
+) {
+    val fotoPerfil = painterResource(R.drawable.descarga)
+    val ImgTelefono = painterResource(R.drawable.telefono)
+    val Insta = painterResource(R.drawable.insta)
+    val Email = painterResource(R.drawable.email)
+
+    Box(
+        modifier = modifier
+            .fillMaxSize()
+            .background(Color(153, 217, 234, 255))
+            .padding(20.dp)
+    )
+    {
+        Box(
+            modifier = modifier
+                .fillMaxSize()
+                .background(Color.White)
+                .padding(20.dp)
+        ){
+            Column {
+                Row {
+                    Image(
+                        painter = fotoPerfil,
+                        contentDescription = null,
+                        contentScale = ContentScale.Crop,
+                        modifier = Modifier
+                            .size(150.dp)
+                            .clip(CircleShape)
+                            .padding(start = 12.dp)
+                    )
+                }
+                Row {
+                    Text(
+                        text = nombre,
+                        textAlign = TextAlign.Center,
+                        fontWeight = FontWeight.Bold,
+                        fontFamily = FontFamily.Serif,
+                        fontSize = 20.sp,
+                        modifier = modifier
+                            .padding(
+                                start = 30.dp,
+                                top = 20.dp
+                            )
+                    )
+                }
+            }
+            Column (
+                modifier = Modifier.align(alignment = Alignment.Center)
+            ){
+                Row {
+                    Text(
+                        text = "Informacion Personal",
+                        textAlign = TextAlign.Center,
+                        fontWeight = FontWeight.Bold,
+                        fontFamily = FontFamily.Serif,
+                        fontSize = 20.sp,
+                        modifier = modifier
+                            .padding(
+                                start = 30.dp,
+                                top = 20.dp
+                            )
+                    )
+                }
+                Row {
+                    Text(
+                        text = estudio,
+                        textAlign = TextAlign.Center,
+                        fontWeight = FontWeight.Bold,
+                        fontFamily = FontFamily.Serif,
+                        fontSize = 20.sp,
+                        modifier = modifier
+                            .padding(
+                                start = 30.dp,
+                                top = 20.dp
+                            )
+                    )
+                }
+                Row {
+                    Text(
+                        text = instituto,
+                        textAlign = TextAlign.Center,
+                        fontWeight = FontWeight.Bold,
+                        fontFamily = FontFamily.Serif,
+                        fontSize = 20.sp,
+                        modifier = modifier
+                            .padding(
+                                start = 30.dp,
+                                top = 20.dp
+                            )
+                    )
+                }
+                Row {
+                    Text(
+                        text = curso,
+                        textAlign = TextAlign.Center,
+                        fontWeight = FontWeight.Bold,
+                        fontFamily = FontFamily.Serif,
+                        fontSize = 20.sp,
+                        modifier = modifier
+                            .padding(
+                                start = 30.dp,
+                                top = 20.dp
+                            )
+                    )
+                }
+            }
+
+            Column (
+                modifier = Modifier.align(alignment = Alignment.CenterEnd)
+            ){
+                Row {
+                    Text(
+                        text = "Informacion Personal",
+                        textAlign = TextAlign.Center,
+                        fontWeight = FontWeight.Bold,
+                        fontFamily = FontFamily.Serif,
+                        fontSize = 20.sp,
+                        modifier = modifier
+                            .padding(
+                                start = 30.dp,
+                                top = 20.dp
+                            )
+                    )
+                }
+                Row {
+                    Text(
+                        text = estudio,
+                        textAlign = TextAlign.Center,
+                        fontWeight = FontWeight.Bold,
+                        fontFamily = FontFamily.Serif,
+                        fontSize = 20.sp,
+                        modifier = modifier
+                            .padding(
+                                start = 30.dp,
+                                top = 20.dp
+                            )
+                    )
+                }
+                Row {
+                    Text(
+                        text = instituto,
+                        textAlign = TextAlign.Center,
+                        fontWeight = FontWeight.Bold,
+                        fontFamily = FontFamily.Serif,
+                        fontSize = 20.sp,
+                        modifier = modifier
+                            .padding(
+                                start = 30.dp,
+                                top = 20.dp
+                            )
+                    )
+                }
+                Row {
+                    Text(
+                        text = curso,
+                        textAlign = TextAlign.Center,
+                        fontWeight = FontWeight.Bold,
+                        fontFamily = FontFamily.Serif,
+                        fontSize = 20.sp,
+                        modifier = modifier
+                            .padding(
+                                start = 30.dp,
+                                top = 20.dp
+                            )
+                    )
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun TarjetaPersonalVertical(
+    telefono: String, pagina: String, email: String,
+    nombre: String, estudio: String, instituto: String,
+    curso: String, ciudad: String, modifier: Modifier = Modifier
+) {
+    val fotoPerfil = painterResource(R.drawable.descarga)
+    val fondo = painterResource(R.drawable.fondotp)
+    val ImgTelefono = painterResource(R.drawable.telefono)
+    val Insta = painterResource(R.drawable.insta)
+    val Email = painterResource(R.drawable.email)
+
 
     Box(
         modifier = modifier
@@ -77,7 +291,7 @@ fun TarjetaPersonal(
     {
 
         Image(
-            painter = image2,
+            painter = fondo,
             contentDescription = null,
             modifier = Modifier
                 .fillMaxSize()
@@ -97,28 +311,68 @@ fun TarjetaPersonal(
 
             ) {
                 Row {
-                    TextInformacion(
-                        texto1 = "\uD83D\uDCDE",
-                        texto2 = telefono,
-                        modifier = modifier
+
+                    Image(
+                        painter = ImgTelefono,
+                        contentDescription = null,
+                        modifier = Modifier
+                            .size(40.dp)
+                            .align(alignment = Alignment.CenterVertically)
+                            .padding(5.dp)
                     )
-                }
-                Row {
-                    TextInformacion(
-                        texto1 = "\uD83C\uDF10",
-                        texto2 = pagina,
-                        modifier = modifier
-                    )
-                }
-                Row {
+
                     Text(
-                        text = "📧  $email",
+                        text = telefono,
                         modifier = modifier
                             .fillMaxWidth()
                             .padding(12.dp),
                         fontWeight = FontWeight.Bold,
                         fontFamily = FontFamily.Serif,
-                        fontSize = 21.sp
+                        fontSize = 20.sp
+                    )
+                }
+                Row(
+                    Modifier.align(alignment = Alignment.Start),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+
+                    Image(
+                        painter = Insta,
+                        contentDescription = null,
+                        modifier = Modifier
+                            .size(60.dp)
+                            .align(alignment = Alignment.CenterVertically)
+                            .padding(end = 18.dp)
+                    )
+
+                    Text(
+                        text = pagina,
+                        modifier = modifier
+                            .fillMaxWidth(),
+                        fontWeight = FontWeight.Bold,
+                        fontFamily = FontFamily.Serif,
+                        fontSize = 20.sp
+                    )
+                }
+                Row {
+
+                    Image(
+                        painter = Email,
+                        contentDescription = null,
+                        modifier = Modifier
+                            .size(40.dp)
+                            .align(alignment = Alignment.CenterVertically)
+                            .padding(5.dp)
+                    )
+
+                    Text(
+                        text = email,
+                        modifier = modifier
+                            .fillMaxWidth()
+                            .padding(12.dp),
+                        fontWeight = FontWeight.Bold,
+                        fontFamily = FontFamily.Serif,
+                        fontSize = 20.sp
                     )
                 }
             }
@@ -131,12 +385,13 @@ fun TarjetaPersonal(
         ) {
             Column {
                 Image(
-                    painter = image1,
+                    painter = fotoPerfil,
                     contentDescription = null,
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
                         .size(150.dp)
                         .clip(CircleShape)
+                        .padding(start = 12.dp)
                 )
             }
             Column {
@@ -194,7 +449,7 @@ fun TarjetaPersonal(
         }
     }
 }
-
+/*
 @Composable
 fun TextInformacion(texto1: String, texto2: String, modifier: Modifier) {
     Text(
@@ -206,10 +461,10 @@ fun TextInformacion(texto1: String, texto2: String, modifier: Modifier) {
         fontFamily = FontFamily.Serif,
         fontSize = 22.sp
     )
-}
+}*/
 
 @Composable
-fun TextInformacion(texto1: String, modifier: Modifier) {
+fun TextInformacion(texto1: String, modifier: Modifier = Modifier) {
     Text(
         text = texto1,
         modifier = modifier
@@ -226,10 +481,10 @@ fun TextInformacion(texto1: String, modifier: Modifier) {
 @Composable
 fun GreetingPreview() {
     TarjetaDePresentacionTheme {
-        TarjetaPersonal(
-            "671 234 859",
-            "AlvaroMarquez.es",
-            "Alvaro@gmail.com",
+        TarjetaPersonalVertical(
+            "  671 234 859",
+            "Alvaro_Marquez",
+            " Alvaro@gmail.com",
             "Álvaro Márquez Santamaría",
             "Estudiante de informática",
             "IES virgen de la Paloma",
