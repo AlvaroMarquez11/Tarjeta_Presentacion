@@ -1,5 +1,7 @@
 package com.example.tarjetadepresentacion
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -17,12 +19,14 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -30,6 +34,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.content.ContextCompat.startActivity
 import com.example.tarjetadepresentacion.ui.theme.TarjetaDePresentacionTheme
 
 class MainActivity : ComponentActivity() {
@@ -44,7 +49,7 @@ class MainActivity : ComponentActivity() {
                 ) {
                     TarjetaPersonal(
                         "  671 234 859",
-                        "Marquez_valdee",
+                        "marquez_valdee",
                         " a.marquez@gmail.com",
                         "Álvaro Márquez Santamaría",
                         "Estudiante de informática",
@@ -62,7 +67,7 @@ class MainActivity : ComponentActivity() {
 fun TarjetaPersonal(
     telefono: String, pagina: String, email: String,
     nombre: String, estudio: String, instituto: String,
-    curso: String, ciudad: String, modifier: Modifier = Modifier
+    curso: String, ciudad: String
 ) {
     BoxWithConstraints(Modifier.fillMaxSize()) {
         if (maxWidth < 500.dp) {
@@ -89,7 +94,6 @@ fun TarjetaPersonal(
             )
         }
     }
-
 }
 
 @Composable
@@ -99,9 +103,9 @@ fun TarjetaPersonalHorizontal(
     curso: String, ciudad: String, modifier: Modifier = Modifier
 ) {
     val fotoPerfil = painterResource(R.drawable.descarga)
-    val ImgTelefono = painterResource(R.drawable.telefono)
-    val Insta = painterResource(R.drawable.insta)
-    val Email = painterResource(R.drawable.email)
+    val imgTelefono = painterResource(R.drawable.telefono)
+    val insta = painterResource(R.drawable.insta)
+    val imgEmail = painterResource(R.drawable.email)
 
     Box(
         modifier = modifier
@@ -148,10 +152,11 @@ fun TarjetaPersonalHorizontal(
                 modifier = Modifier
                     .align(alignment = Alignment.TopCenter)
             ) {
-                Row (modifier = modifier
-                    .fillMaxWidth()
-                    .align(alignment = Alignment.End)
-                ){
+                Row(
+                    modifier = modifier
+                        .fillMaxWidth()
+                        .align(alignment = Alignment.End)
+                ) {
                     Text(
                         text = nombre,
                         textAlign = TextAlign.Center,
@@ -163,10 +168,13 @@ fun TarjetaPersonalHorizontal(
                 }
                 Row(modifier = modifier.align(alignment = Alignment.CenterHorizontally))
                 {
-                    Column(modifier = modifier
-                        .padding(
-                            start = 85.dp,
-                        top = 20.dp))
+                    Column(
+                        modifier = modifier
+                            .padding(
+                                start = 85.dp,
+                                top = 20.dp
+                            )
+                    )
                     {
                         Row {
                             Text(
@@ -214,28 +222,21 @@ fun TarjetaPersonalHorizontal(
 
                     Column(modifier = modifier.padding(top = 20.dp))
                     {
-                        Row (modifier = modifier
-                            .align(alignment = Alignment.End)
-                            .padding(top = 15.dp)) {
-                            Text(
-                                text = telefono,
-                                textAlign = TextAlign.Center,
-                                fontWeight = FontWeight.Bold,
-                                fontFamily = FontFamily.Serif,
-                                fontSize = 20.sp,
-                                modifier = modifier
-                                    .padding(
-                                        start = 30.dp,
-                                        top = 10.dp
-                                    )
-                            )
+                        Row(
+                            modifier = modifier
+                                .align(alignment = Alignment.End)
+                                .padding(top = 15.dp)
+                        ) {
+                            
+                            BotonNumeroHorizontal(telefono = telefono)
+                            
                             Image(
-                                painter = ImgTelefono,
+                                painter = imgTelefono,
                                 contentDescription = null,
                                 modifier = Modifier
                                     .size(40.dp)
                                     .align(alignment = Alignment.CenterVertically)
-                                    .padding(5.dp)
+                                    .padding(start = 15.dp, top = 5.dp)
                             )
 
                         }
@@ -259,12 +260,12 @@ fun TarjetaPersonalHorizontal(
                                     )
                             )
                             Image(
-                                painter = Insta,
+                                painter = insta,
                                 contentDescription = null,
                                 modifier = Modifier
                                     .size(40.dp)
                                     .align(alignment = Alignment.CenterVertically)
-                                    .padding(5.dp)
+                                    .padding(start = 15.dp, top = 5.dp)
                             )
 
                         }
@@ -288,12 +289,12 @@ fun TarjetaPersonalHorizontal(
                                     )
                             )
                             Image(
-                                painter = Email,
+                                painter = imgEmail,
                                 contentDescription = null,
                                 modifier = Modifier
                                     .size(40.dp)
                                     .align(alignment = Alignment.CenterVertically)
-                                    .padding(5.dp)
+                                    .padding(start = 15.dp, top = 5.dp)
                             )
                         }
 
@@ -302,79 +303,103 @@ fun TarjetaPersonalHorizontal(
 
 
             }
-            /*
-                        Column(
-                            modifier = Modifier.align(alignment = Alignment.TopEnd)
-                        ) {
-                            Row {
-                                Image(
-                                    painter = ImgTelefono,
-                                    contentDescription = null,
-                                    modifier = Modifier
-                                        .size(40.dp)
-                                        .align(alignment = Alignment.CenterVertically)
-                                        .padding(5.dp)
-                                )
-                                Text(
-                                    text = telefono,
-                                    textAlign = TextAlign.Center,
-                                    fontWeight = FontWeight.Bold,
-                                    fontFamily = FontFamily.Serif,
-                                    fontSize = 20.sp,
-                                    modifier = modifier
-                                        .padding(
-                                            start = 30.dp,
-                                            top = 10.dp
-                                        )
-                                )
-                            }
-                            Row {
-                                Image(
-                                    painter = Insta,
-                                    contentDescription = null,
-                                    modifier = Modifier
-                                        .size(40.dp)
-                                        .align(alignment = Alignment.CenterVertically)
-                                        .padding(5.dp)
-                                )
 
-                                Text(
-                                    text = estudio,
-                                    textAlign = TextAlign.Center,
-                                    fontWeight = FontWeight.Bold,
-                                    fontFamily = FontFamily.Serif,
-                                    fontSize = 20.sp,
-                                    modifier = modifier
-                                        .padding(
-                                            start = 30.dp,
-                                            top = 10.dp
-                                        )
-                                )
-                            }
-                            Row {
-                                Image(
-                                    painter = Email,
-                                    contentDescription = null,
-                                    modifier = Modifier
-                                        .size(40.dp)
-                                        .align(alignment = Alignment.CenterVertically)
-                                        .padding(5.dp)
-                                )
-                                Text(
-                                    text = instituto,
-                                    textAlign = TextAlign.Start,
-                                    fontWeight = FontWeight.Bold,
-                                    fontFamily = FontFamily.Serif,
-                                    fontSize = 20.sp,
-                                    modifier = modifier
-                                        .padding(
-                                            start = 30.dp,
-                                            top = 10.dp
-                                        )
-                                )
-                            }
-                        }*/
         }
+    }
+}
+
+@Composable
+fun BotonNumeroHorizontal(telefono: String) {
+    val numeroTelefono = telefono
+    val localContext = LocalContext.current
+    TextButton(onClick = {
+        val textPhone = "tel: $numeroTelefono"
+        val intent = Intent(Intent.ACTION_DIAL)
+        intent.data = Uri.parse(textPhone)
+        startActivity(localContext, intent, null)
+    }) {
+        Text(
+            text = numeroTelefono,
+            textAlign = TextAlign.Center,
+            fontWeight = FontWeight.Bold,
+            fontFamily = FontFamily.Serif,
+            fontSize = 20.sp,
+            modifier = Modifier
+                .padding(
+                    start = 30.dp,
+                    top = 10.dp
+                )
+        )
+
+    }
+}
+
+@Composable
+fun BotonNumeroVertical(telefono: String) {
+    val numeroTelefono = telefono
+    val localContext = LocalContext.current
+    TextButton(onClick = {
+        val textPhone = "tel: $numeroTelefono"
+        val intent = Intent(Intent.ACTION_DIAL)
+        intent.data = Uri.parse(textPhone)
+        startActivity(localContext, intent, null)
+    }) {
+        Text(
+            text = numeroTelefono,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(12.dp),
+            fontWeight = FontWeight.Bold,
+            fontFamily = FontFamily.Serif,
+            fontSize = 20.sp
+        )
+
+    }
+}
+
+@Composable
+fun BotonInstagram(instagram: String) {
+    val linkInstagram = instagram
+    val localContext = LocalContext.current
+    TextButton(onClick = {
+        val textInsta = "https://www.instagram.com/$instagram/"
+        val intent = Intent(Intent.ACTION_VIEW)
+        intent.data = Uri.parse(textInsta)
+        startActivity(localContext, intent, null)
+    }) {
+        Text(
+            text = linkInstagram,
+            modifier = Modifier
+                .fillMaxWidth(),
+            fontWeight = FontWeight.Bold,
+            fontFamily = FontFamily.Serif,
+            fontSize = 20.sp
+            
+        )
+
+    }
+}
+
+@Composable
+fun BotonCopiarEmail(email: String) {
+    val linkEmail = email
+    val localContext = LocalContext.current
+    TextButton(onClick = {
+        val textInsta = "https://www.instagram.com/$email/"
+        val intent = Intent(Intent.ACTION_GET_CONTENT)
+        intent.data = Uri.parse(textInsta)
+        startActivity(localContext, intent, null)
+    }) {
+        Text(
+            text = linkEmail,
+            modifier = Modifier
+                .fillMaxWidth(),
+            fontWeight = FontWeight.Bold,
+            fontFamily = FontFamily.Serif,
+            fontSize = 20.sp
+
+        )
+
     }
 }
 
@@ -386,9 +411,9 @@ fun TarjetaPersonalVertical(
 ) {
     val fotoPerfil = painterResource(R.drawable.descarga)
     val fondo = painterResource(R.drawable.fondotp)
-    val ImgTelefono = painterResource(R.drawable.telefono)
-    val Insta = painterResource(R.drawable.insta)
-    val Email = painterResource(R.drawable.email)
+    val imgTelefono = painterResource(R.drawable.telefono)
+    val insta = painterResource(R.drawable.insta)
+    val imgEmail = painterResource(R.drawable.email)
 
 
     Box(
@@ -423,7 +448,7 @@ fun TarjetaPersonalVertical(
                 Row {
 
                     Image(
-                        painter = ImgTelefono,
+                        painter = imgTelefono,
                         contentDescription = null,
                         modifier = Modifier
                             .size(40.dp)
@@ -431,7 +456,7 @@ fun TarjetaPersonalVertical(
                             .padding(5.dp)
                     )
 
-                    Text(
+                    /*Text(
                         text = telefono,
                         modifier = modifier
                             .fillMaxWidth()
@@ -439,7 +464,9 @@ fun TarjetaPersonalVertical(
                         fontWeight = FontWeight.Bold,
                         fontFamily = FontFamily.Serif,
                         fontSize = 20.sp
-                    )
+                    )*/
+
+                    BotonNumeroVertical(telefono = telefono)
                 }
                 Row(
                     Modifier.align(alignment = Alignment.Start),
@@ -447,7 +474,7 @@ fun TarjetaPersonalVertical(
                 ) {
 
                     Image(
-                        painter = Insta,
+                        painter = insta,
                         contentDescription = null,
                         modifier = Modifier
                             .size(60.dp)
@@ -455,19 +482,21 @@ fun TarjetaPersonalVertical(
                             .padding(end = 18.dp)
                     )
 
-                    Text(
+                    /*Text(
                         text = pagina,
                         modifier = modifier
                             .fillMaxWidth(),
                         fontWeight = FontWeight.Bold,
                         fontFamily = FontFamily.Serif,
                         fontSize = 20.sp
-                    )
+                    )*/
+
+                    BotonInstagram(instagram = pagina)
                 }
                 Row {
 
                     Image(
-                        painter = Email,
+                        painter = imgEmail,
                         contentDescription = null,
                         modifier = Modifier
                             .size(40.dp)
@@ -475,7 +504,7 @@ fun TarjetaPersonalVertical(
                             .padding(5.dp)
                     )
 
-                    Text(
+                    /*Text(
                         text = email,
                         modifier = modifier
                             .fillMaxWidth()
@@ -483,7 +512,9 @@ fun TarjetaPersonalVertical(
                         fontWeight = FontWeight.Bold,
                         fontFamily = FontFamily.Serif,
                         fontSize = 20.sp
-                    )
+                    )*/
+
+                    BotonCopiarEmail(email = email)
                 }
             }
         }
@@ -559,19 +590,6 @@ fun TarjetaPersonalVertical(
         }
     }
 }
-/*
-@Composable
-fun TextInformacion(texto1: String, texto2: String, modifier: Modifier) {
-    Text(
-        text = "$texto1  $texto2",
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(12.dp),
-        fontWeight = FontWeight.Bold,
-        fontFamily = FontFamily.Serif,
-        fontSize = 22.sp
-    )
-}*/
 
 @Composable
 fun TextInformacion(texto1: String, modifier: Modifier = Modifier) {
