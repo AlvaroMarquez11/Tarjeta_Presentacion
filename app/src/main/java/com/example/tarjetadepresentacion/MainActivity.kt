@@ -50,7 +50,7 @@ class MainActivity : ComponentActivity() {
                     TarjetaPersonal(
                         "  671 234 859",
                         "marquez_valdee",
-                        " a.marquez@gmail.com",
+                        " a.marquez.santamaria@gmail.com",
                         "Álvaro Márquez Santamaría",
                         "Estudiante de informática",
                         "IES virgen de la Paloma",
@@ -275,7 +275,7 @@ fun TarjetaPersonalHorizontal(
                                 .align(alignment = Alignment.End)
                                 .padding(top = 15.dp)
                         ) {
-
+/*
                             Text(
                                 text = email,
                                 textAlign = TextAlign.Center,
@@ -287,7 +287,10 @@ fun TarjetaPersonalHorizontal(
                                         start = 30.dp,
                                         top = 10.dp
                                     )
-                            )
+                            )*/
+
+                            BotonEmailHorizontal()
+
                             Image(
                                 painter = imgEmail,
                                 contentDescription = null,
@@ -300,10 +303,7 @@ fun TarjetaPersonalHorizontal(
 
                     }
                 }
-
-
             }
-
         }
     }
 }
@@ -381,14 +381,62 @@ fun BotonInstagram(instagram: String) {
 }
 
 @Composable
-fun BotonCopiarEmail(email: String) {
-    val linkEmail = email
+fun BotonInstagramHorizontal(instagram: String) {
+    val linkInstagram = instagram
     val localContext = LocalContext.current
     TextButton(onClick = {
-        val textInsta = "https://www.instagram.com/$email/"
-        val intent = Intent(Intent.ACTION_GET_CONTENT)
+        val textInsta = "https://www.instagram.com/$instagram/"
+        val intent = Intent(Intent.ACTION_VIEW)
         intent.data = Uri.parse(textInsta)
         startActivity(localContext, intent, null)
+    }) {
+        Text(
+            text = linkInstagram,
+            modifier = Modifier
+                .fillMaxWidth(),
+            fontWeight = FontWeight.Bold,
+            fontFamily = FontFamily.Serif,
+            fontSize = 20.sp
+
+        )
+
+    }
+}
+
+@Composable
+fun BotonEmail(email: String) {
+    val email: String = email
+    val localContext = LocalContext.current
+    TextButton(onClick = {
+        val intentMail = Intent(Intent.ACTION_SEND, Uri.parse(email))
+        intentMail.type = "plain/text"
+        intentMail.putExtra(Intent.EXTRA_SUBJECT, "titulo del mail")
+        intentMail.putExtra(Intent.EXTRA_EMAIL, arrayOf(email))
+        startActivity(localContext, intentMail, null)
+    }) {
+        Text(
+            text = email,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 15.dp),
+            fontWeight = FontWeight.Bold,
+            fontFamily = FontFamily.Serif,
+            fontSize = 20.sp
+
+        )
+    }
+}
+
+@Composable
+fun BotonEmailHorizontal() {
+    val linkEmail = "a.marquez@gmail.com"
+    val localContext = LocalContext.current
+    TextButton(onClick = {
+        val intentMail = Intent(Intent.ACTION_SEND, Uri.parse(linkEmail))
+        intentMail.type = "plain/text"
+        intentMail.putExtra(Intent.EXTRA_SUBJECT, "titulo del mail")
+        intentMail.putExtra(Intent.EXTRA_EMAIL, arrayOf("a.marquez.santamaria@gmail.com"))
+        startActivity(localContext, intentMail, null)
     }) {
         Text(
             text = linkEmail,
@@ -399,7 +447,6 @@ fun BotonCopiarEmail(email: String) {
             fontSize = 20.sp
 
         )
-
     }
 }
 
@@ -456,16 +503,6 @@ fun TarjetaPersonalVertical(
                             .padding(5.dp)
                     )
 
-                    /*Text(
-                        text = telefono,
-                        modifier = modifier
-                            .fillMaxWidth()
-                            .padding(12.dp),
-                        fontWeight = FontWeight.Bold,
-                        fontFamily = FontFamily.Serif,
-                        fontSize = 20.sp
-                    )*/
-
                     BotonNumeroVertical(telefono = telefono)
                 }
                 Row(
@@ -482,15 +519,6 @@ fun TarjetaPersonalVertical(
                             .padding(end = 18.dp)
                     )
 
-                    /*Text(
-                        text = pagina,
-                        modifier = modifier
-                            .fillMaxWidth(),
-                        fontWeight = FontWeight.Bold,
-                        fontFamily = FontFamily.Serif,
-                        fontSize = 20.sp
-                    )*/
-
                     BotonInstagram(instagram = pagina)
                 }
                 Row {
@@ -504,17 +532,7 @@ fun TarjetaPersonalVertical(
                             .padding(5.dp)
                     )
 
-                    /*Text(
-                        text = email,
-                        modifier = modifier
-                            .fillMaxWidth()
-                            .padding(12.dp),
-                        fontWeight = FontWeight.Bold,
-                        fontFamily = FontFamily.Serif,
-                        fontSize = 20.sp
-                    )*/
-
-                    BotonCopiarEmail(email = email)
+                    BotonEmail(email = email)
                 }
             }
         }
