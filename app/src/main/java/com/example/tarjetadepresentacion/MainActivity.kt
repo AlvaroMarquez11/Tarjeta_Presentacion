@@ -1,5 +1,6 @@
 package com.example.tarjetadepresentacion
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -31,6 +32,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -48,9 +50,9 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     TarjetaPersonal(
-                        "  671 234 859",
+                        "671 234 859",
                         "marquez_valdee",
-                        " a.marquez.santamaria@gmail.com",
+                        "a.marquez@gmail.com",
                         "Álvaro Márquez Santamaría",
                         "Estudiante de informática",
                         "IES virgen de la Paloma",
@@ -163,7 +165,9 @@ fun TarjetaPersonalHorizontal(
                         fontWeight = FontWeight.Bold,
                         fontFamily = FontFamily.Serif,
                         fontSize = 40.sp,
-                        modifier = modifier.padding(start = 120.dp)
+                        modifier = modifier.padding(
+                            start = 120.dp
+                        )
                     )
                 }
                 Row(modifier = modifier.align(alignment = Alignment.CenterHorizontally))
@@ -227,9 +231,9 @@ fun TarjetaPersonalHorizontal(
                                 .align(alignment = Alignment.End)
                                 .padding(top = 15.dp)
                         ) {
-                            
+
                             BotonNumeroHorizontal(telefono = telefono)
-                            
+
                             Image(
                                 painter = imgTelefono,
                                 contentDescription = null,
@@ -247,18 +251,8 @@ fun TarjetaPersonalHorizontal(
                                 .padding(top = 15.dp)
                         ) {
 
-                            Text(
-                                text = pagina,
-                                textAlign = TextAlign.Center,
-                                fontWeight = FontWeight.Bold,
-                                fontFamily = FontFamily.Serif,
-                                fontSize = 20.sp,
-                                modifier = modifier
-                                    .padding(
-                                        start = 30.dp,
-                                        top = 10.dp
-                                    )
-                            )
+                            BotonInstagramHorizontal(instagram = pagina)
+
                             Image(
                                 painter = insta,
                                 contentDescription = null,
@@ -275,21 +269,8 @@ fun TarjetaPersonalHorizontal(
                                 .align(alignment = Alignment.End)
                                 .padding(top = 15.dp)
                         ) {
-/*
-                            Text(
-                                text = email,
-                                textAlign = TextAlign.Center,
-                                fontWeight = FontWeight.Bold,
-                                fontFamily = FontFamily.Serif,
-                                fontSize = 20.sp,
-                                modifier = modifier
-                                    .padding(
-                                        start = 30.dp,
-                                        top = 10.dp
-                                    )
-                            )*/
 
-                            BotonEmailHorizontal()
+                            BotonEmailHorizontal(email = email)
 
                             Image(
                                 painter = imgEmail,
@@ -300,7 +281,6 @@ fun TarjetaPersonalHorizontal(
                                     .padding(start = 15.dp, top = 5.dp)
                             )
                         }
-
                     }
                 }
             }
@@ -310,23 +290,24 @@ fun TarjetaPersonalHorizontal(
 
 @Composable
 fun BotonNumeroHorizontal(telefono: String) {
-    val numeroTelefono = telefono
     val localContext = LocalContext.current
     TextButton(onClick = {
-        val textPhone = "tel: $numeroTelefono"
+        val textPhone = "tel: $telefono"
         val intent = Intent(Intent.ACTION_DIAL)
         intent.data = Uri.parse(textPhone)
         startActivity(localContext, intent, null)
     }) {
         Text(
-            text = numeroTelefono,
+            text = telefono,
             textAlign = TextAlign.Center,
             fontWeight = FontWeight.Bold,
             fontFamily = FontFamily.Serif,
             fontSize = 20.sp,
+            color = Color(60,120,200),
+            textDecoration = TextDecoration.Underline,
             modifier = Modifier
                 .padding(
-                    start = 30.dp,
+                    start = 40.dp,
                     top = 10.dp
                 )
         )
@@ -336,22 +317,23 @@ fun BotonNumeroHorizontal(telefono: String) {
 
 @Composable
 fun BotonNumeroVertical(telefono: String) {
-    val numeroTelefono = telefono
     val localContext = LocalContext.current
     TextButton(onClick = {
-        val textPhone = "tel: $numeroTelefono"
+        val textPhone = "tel: $telefono"
         val intent = Intent(Intent.ACTION_DIAL)
         intent.data = Uri.parse(textPhone)
         startActivity(localContext, intent, null)
     }) {
         Text(
-            text = numeroTelefono,
+            text = telefono,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(12.dp),
+                .padding(start = 20.dp),
             fontWeight = FontWeight.Bold,
             fontFamily = FontFamily.Serif,
-            fontSize = 20.sp
+            fontSize = 20.sp,
+            color = Color(60,120,200),
+            textDecoration = TextDecoration.Underline
         )
 
     }
@@ -359,7 +341,6 @@ fun BotonNumeroVertical(telefono: String) {
 
 @Composable
 fun BotonInstagram(instagram: String) {
-    val linkInstagram = instagram
     val localContext = LocalContext.current
     TextButton(onClick = {
         val textInsta = "https://www.instagram.com/$instagram/"
@@ -368,13 +349,15 @@ fun BotonInstagram(instagram: String) {
         startActivity(localContext, intent, null)
     }) {
         Text(
-            text = linkInstagram,
+            text = instagram,
             modifier = Modifier
                 .fillMaxWidth(),
             fontWeight = FontWeight.Bold,
             fontFamily = FontFamily.Serif,
-            fontSize = 20.sp
-            
+            fontSize = 20.sp,
+            color = Color(60,120,200),
+            textDecoration = TextDecoration.Underline
+
         )
 
     }
@@ -382,7 +365,6 @@ fun BotonInstagram(instagram: String) {
 
 @Composable
 fun BotonInstagramHorizontal(instagram: String) {
-    val linkInstagram = instagram
     val localContext = LocalContext.current
     TextButton(onClick = {
         val textInsta = "https://www.instagram.com/$instagram/"
@@ -391,45 +373,27 @@ fun BotonInstagramHorizontal(instagram: String) {
         startActivity(localContext, intent, null)
     }) {
         Text(
-            text = linkInstagram,
-            modifier = Modifier
-                .fillMaxWidth(),
+            text = instagram,
+            textAlign = TextAlign.Center,
             fontWeight = FontWeight.Bold,
             fontFamily = FontFamily.Serif,
-            fontSize = 20.sp
-
+            fontSize = 20.sp,
+            color = Color(60,120,200),
+            textDecoration = TextDecoration.Underline,
+            modifier = Modifier
+                .padding(
+                    start = 30.dp,
+                    top = 8.dp
+                )
         )
 
     }
 }
 
+@SuppressLint("IntentReset")
 @Composable
 fun BotonEmail(email: String) {
-    val email: String = email
-    val localContext = LocalContext.current
-    TextButton(onClick = {
-        val intentMail = Intent(Intent.ACTION_SEND, Uri.parse(email))
-        intentMail.type = "plain/text"
-        intentMail.putExtra(Intent.EXTRA_SUBJECT, "titulo del mail")
-        intentMail.putExtra(Intent.EXTRA_EMAIL, arrayOf(email))
-        startActivity(localContext, intentMail, null)
-    }) {
-        Text(
-            text = email,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(start = 15.dp),
-            fontWeight = FontWeight.Bold,
-            fontFamily = FontFamily.Serif,
-            fontSize = 20.sp
-
-        )
-    }
-}
-
-@Composable
-fun BotonEmailHorizontal() {
-    val linkEmail = "a.marquez@gmail.com"
+    val linkEmail: String = email
     val localContext = LocalContext.current
     TextButton(onClick = {
         val intentMail = Intent(Intent.ACTION_SEND, Uri.parse(linkEmail))
@@ -439,13 +403,44 @@ fun BotonEmailHorizontal() {
         startActivity(localContext, intentMail, null)
     }) {
         Text(
-            text = linkEmail,
+            text = email,
             modifier = Modifier
-                .fillMaxWidth(),
+                .fillMaxWidth()
+                .padding(start = 20.dp),
             fontWeight = FontWeight.Bold,
             fontFamily = FontFamily.Serif,
-            fontSize = 20.sp
+            fontSize = 20.sp,
+            color = Color(60,120,200),
+            textDecoration = TextDecoration.Underline
 
+        )
+    }
+}
+
+@SuppressLint("IntentReset")
+@Composable
+fun BotonEmailHorizontal(email: String) {
+    val localContext = LocalContext.current
+    TextButton(onClick = {
+        val intentMail = Intent(Intent.ACTION_SEND, Uri.parse(email))
+        intentMail.type = "plain/text"
+        intentMail.putExtra(Intent.EXTRA_SUBJECT, "titulo del mail")
+        intentMail.putExtra(Intent.EXTRA_EMAIL, arrayOf("a.marquez.santamaria@gmail.com"))
+        startActivity(localContext, intentMail, null)
+    }) {
+        Text(
+            text = email,
+            textAlign = TextAlign.Center,
+            fontWeight = FontWeight.Bold,
+            fontFamily = FontFamily.Serif,
+            fontSize = 20.sp,
+            color = Color(60,120,200),
+            textDecoration = TextDecoration.Underline,
+            modifier = Modifier
+                .padding(
+                    start = 30.dp,
+                    top = 10.dp
+                )
         )
     }
 }
@@ -516,7 +511,7 @@ fun TarjetaPersonalVertical(
                         modifier = Modifier
                             .size(60.dp)
                             .align(alignment = Alignment.CenterVertically)
-                            .padding(end = 18.dp)
+                            .padding(end = 15.dp)
                     )
 
                     BotonInstagram(instagram = pagina)
@@ -628,7 +623,7 @@ fun TextInformacion(texto1: String, modifier: Modifier = Modifier) {
 fun GreetingPreview() {
     TarjetaDePresentacionTheme {
         TarjetaPersonalVertical(
-            "  671 234 859",
+            "671 234 859",
             "Alvaro_Marquez",
             " Alvaro@gmail.com",
             "Álvaro Márquez Santamaría",
